@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+# Guided Expedition Submarine Game 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+----- PLAN -----
 
-## Available Scripts
+<img src = "./public/guided-expedition-mockup.png">
 
-In the project directory, you can run:
+## GOAL 
 
-### `npm start`
+Create a game where the user communicates with a blind submarine. They must navigate them manually through a minefield. The submarine will respond to stop, go, up, down, left, right. We will use the tensorflow.js speach command library and access the microphone when the user presses the talk button down.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Game loop: 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+User is placed in a random location on the left side of the "map". a number of mines are plaaced randomly across the map. an exit is placed randomly on the right side of the map. the user must navigate the submarine successfully to the exit. if a collision with a mine occurs the game will end. if the user navigates to the exit then a congradulations screen will show and prompt the user to restart.
 
-### `npm test`
+## File structure
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Home ->
+    Home.js(introduce player to the game and ask them to begin)
+Game ->
+    Game.js(contains board and talk button)
 
-### `npm run build`
+    Board ->
+        Board.js contains all lines, mines, submarine, and exit
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+            Submarine ->
+                Submarine.js(green dot, moves based on users commands)
+            Mine ->
+                Mine.js(red dot, static)
+            Exit ->
+                Exit.js(dark green oval, static)
+            Line ->
+                Line.js(light green line, placed at intervals of 10 assuming grid of (100,100) ) 
+        
+    TalkButton ->
+        TalkButton.js(Red button, callback function as props)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<img src = "./public/data-flow.png">
