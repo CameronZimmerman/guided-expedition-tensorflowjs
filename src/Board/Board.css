@@ -1,0 +1,20 @@
+.game-board {
+    position: relative;
+    background-color: black;
+}
+
+.mine {
+    position: absolute;
+    background-color: red;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+}
+
+.sub {
+    position: absolute;
+    background-color: limegreen;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import * as tf from '@tensorflow/tfjs';
 import * as SpeechCommands from '@tensorflow-models/speech-commands';
+import Board from '../Board/Board.js';
 
 export default class Game extends Component {
     state = {
@@ -8,6 +9,7 @@ export default class Game extends Component {
         modelLoaded: false,
         words: [],
         currentCommand: "",
+        isListening: false
     }
 
     componentDidMount() {
@@ -29,11 +31,12 @@ export default class Game extends Component {
 
     startListening = async () => {
         try {
+                this.setState({isListening: true});
                 await this.state.recognizer.listen(({scores}) => {
                 scores = Array.from(scores).map((s, i) => ({score: s, word: this.state.words[i]}));
 
                 scores.sort((s1, s2) => s2.score - s1.score);
-                let validScores = ['up', 'down', 'left', 'right']
+                let validScores = ['up', 'down', 'left', 'right', 'go', 'stop']
                 if (validScores.includes(scores[0].word)) this.setState({currentCommand: scores[0].word})
                 else {this.setState({currentCommand: 'unknown'})}
                 console.log(this.state.currentCommand);
@@ -50,6 +53,7 @@ export default class Game extends Component {
     stopListening = async () => {
         try {
             await this.state.recognizer.stopListening();
+            this.setState({isListening: false});
         }
         catch (err){
             console.log('uh oh stinky ' + err);
@@ -60,6 +64,7 @@ export default class Game extends Component {
         return (
             <div >
                 {!this.state.modelLoaded && <p>LOADING MODEL</p>}
+                <Board streaming = {this.state.isListening} command = {this.state.currentCommand} start = {this.startListening} stop = {this.stopListening}/>
             </div>
         )
     }
